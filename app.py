@@ -1,4 +1,3 @@
-import os
 from flask import Flask, render_template, redirect, request
 from flask_scss import Scss
 from flask_sqlalchemy import SQLAlchemy
@@ -9,10 +8,8 @@ app = Flask(__name__)
 Scss(app)
 
 # Configure SQLAlchemy
-if os.environ.get('VERCEL'):
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/database.db'
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+db = SQLAlchemy(app)
 
 # Data class - Row data
 class MyTask(db.Model):
